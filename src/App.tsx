@@ -5,7 +5,7 @@ export const App = () => {
     return (
         <div className="App">
             <h1>
-                TODOLIST
+                TEST COMMIT FOR CONSOLE
             </h1>
         </div>
     );

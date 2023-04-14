@@ -25,8 +25,12 @@ export const App = () => {
 
     return (
         <div className="App">
-            {/*<Todolist title={'What to learn'} tasks={ArrayWhatToLearn}/>*/}
-            <Todolist title={'Books'} tasks={ArrayBooks}/>
+            <Todolist title={'What to learn'}
+                      tasks={ArrayWhatToLearn}
+            />
+            <Todolist title={'Books'}
+                      tasks={ArrayBooks}
+            />
         </div>
     );
 }

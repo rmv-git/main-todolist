@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
+import {Todolist} from "./Todolist";
 
 export const App = () => {
     return (
         <div className="App">
-            <h1>
-                TEST COMMIT FOR CONSOLE
-            </h1>
+            <Todolist/>
+            <Todolist/>
+            <Todolist/>
         </div>
     );
 }

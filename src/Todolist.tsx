@@ -1,12 +1,11 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
-import {FilterValuesType, TaskType} from "./App";
+import {FilterValuesType, TaskType} from "./types";
 
 type PropsType = {
     title: string;
     tasks: Array<TaskType>;
     addTask: (title: string) => void;
     removeTask: (id: number) => void;
-    taskFilter: FilterValuesType;
     setTaskFilter: (value: FilterValuesType) => void;
 }
 export const Todolist = (props: PropsType) => {
@@ -31,6 +30,10 @@ export const Todolist = (props: PropsType) => {
         }
     }
 
+    const onClickFilterHandler = (value: FilterValuesType) => {
+        props.setTaskFilter(value);
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
@@ -52,17 +55,11 @@ export const Todolist = (props: PropsType) => {
                 }
             </ul>
             <div>
-                <button onClick={() => {
-                    props.setTaskFilter('All')
-                }}>All
+                <button onClick={() => onClickFilterHandler('All')}>All
                 </button>
-                <button onClick={() => {
-                    props.setTaskFilter('Active')
-                }}>Active
+                <button onClick={() => onClickFilterHandler('Active')}>Active
                 </button>
-                <button onClick={() => {
-                    props.setTaskFilter('Completed')
-                }}>Completed
+                <button onClick={() => onClickFilterHandler('Completed')}>Completed
                 </button>
             </div>
         </div>

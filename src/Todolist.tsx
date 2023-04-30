@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterValuesType, TaskType} from "./types";
+import {InputForm} from "./components/input-form/InputForm";
 
 type PropsType = {
     title: string;
@@ -11,25 +12,22 @@ type PropsType = {
 }
 export const Todolist = (props: PropsType) => {
 
-    let [taskTitle, setTaskTitle] = useState<string>('');
+    // let [taskTitle, setTaskTitle] = useState<string>('');
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(event.currentTarget.value);
+    // const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setTaskTitle(event.currentTarget.value);
+    // }
+
+    const addTask = (value: string) => {
+        props.addTask(value)
     }
 
-    const addTask = () => {
-        if (taskTitle.trim() !== '') {
-            props.addTask(taskTitle);
-            setTaskTitle('');
-        }
-    }
-
-    const onKeyPressHandler = (event: KeyboardEvent) => {
-        const {key} = event;
-        if (key === 'Enter') {
-            addTask();
-        }
-    }
+    // const onKeyPressHandler = (event: KeyboardEvent) => {
+    //     const {key} = event;
+    //     if (key === 'Enter') {
+    //         // addTask();
+    //     }
+    // }
 
     const onClickFilterHandler = (value: FilterValuesType) => {
         props.setTaskFilter(value);
@@ -38,10 +36,11 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>{props.title}</h3>
-            <div>
-                <input value={taskTitle} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}/>
-                <button onClick={addTask}>+</button>
-            </div>
+            <InputForm addTask={(value) => addTask(value)}/>
+            {/*<div>*/}
+            {/*    <input value={taskTitle} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}/>*/}
+            {/*    <button onClick={addTask}>+</button>*/}
+            {/*</div>*/}
             <ul style={{listStyle: "none"}}>
                 {
                     props.tasks.map((task: TaskType) => {

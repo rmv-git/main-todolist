@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterValuesType, TaskType} from "./types";
 import {InputForm} from "./components/input-form/InputForm";
+import {EditableInput} from "./components/editable-input/EditableInput";
 
 type PropsType = {
     title: string;
@@ -9,6 +10,7 @@ type PropsType = {
     removeTask: (id: string) => void;
     setTaskFilter: (value: FilterValuesType) => void;
     changeTaskStatus: (id: string, isDone: boolean) => void;
+    changeTaskTitle: (id: string, title: string) => void;
 }
 export const Todolist = (props: PropsType) => {
 
@@ -47,6 +49,9 @@ export const Todolist = (props: PropsType) => {
                         const onChangeCheckboxHandler = (isDone: boolean) => {
                             props.changeTaskStatus(task.id, isDone)
                         }
+                        const changeTaskTitle = (title: string) => {
+                            props.changeTaskTitle(task.id, title);
+                        }
 
                         return (
                             <li key={task.id}>
@@ -55,7 +60,8 @@ export const Todolist = (props: PropsType) => {
                                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
                                            onChangeCheckboxHandler(event.currentTarget.checked)}
                                 />
-                                <span>{task.title}</span>
+                                <EditableInput title={task.title} changeTitle={changeTaskTitle}/>
+                                {/*<span>{task.title}</span>*/}
                             </li>
                         )
                     })

@@ -26,6 +26,9 @@ export const App = () => {
     const changeTaskStatus = (id: string, isDone: boolean) => {
         setTasks(tasks.map(task => task.id === id ? {...task, isDone} : task));
     }
+    const changeTaskTitle = (id: string, title: string) => {
+        setTasks(tasks.map((task: TaskType) => task.id === id ? {...task, title} : task));
+    }
 
     let filteredTasks = tasks;
 
@@ -44,6 +47,7 @@ export const App = () => {
                       setTaskFilter={setTaskFilter}
                       addTask={addTask}
                       changeTaskStatus={changeTaskStatus}
+                      changeTaskTitle={changeTaskTitle}
             />
         </div>
     );

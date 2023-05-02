@@ -40,4 +40,3 @@ export const InputForm = (props: PropsType) => {
         </div>
     );
 };
-

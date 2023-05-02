@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react";
+import React, {ChangeEvent} from "react";
 import {FilterValuesType, TaskType} from "./types";
 import {InputForm} from "./components/input-form/InputForm";
 import {EditableInput} from "./components/editable-input/EditableInput";
@@ -14,22 +14,9 @@ type PropsType = {
 }
 export const Todolist = (props: PropsType) => {
 
-    // let [taskTitle, setTaskTitle] = useState<string>('');
-
-    // const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setTaskTitle(event.currentTarget.value);
-    // }
-
     const addTask = (value: string) => {
         props.addTask(value)
     }
-
-    // const onKeyPressHandler = (event: KeyboardEvent) => {
-    //     const {key} = event;
-    //     if (key === 'Enter') {
-    //         // addTask();
-    //     }
-    // }
 
     const onClickFilterHandler = (value: FilterValuesType) => {
         props.setTaskFilter(value);
@@ -39,10 +26,6 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.title}</h3>
             <InputForm addTask={(value) => addTask(value)}/>
-            {/*<div>*/}
-            {/*    <input value={taskTitle} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}/>*/}
-            {/*    <button onClick={addTask}>+</button>*/}
-            {/*</div>*/}
             <ul style={{listStyle: "none"}}>
                 {
                     props.tasks.map((task: TaskType) => {
@@ -61,7 +44,6 @@ export const Todolist = (props: PropsType) => {
                                            onChangeCheckboxHandler(event.currentTarget.checked)}
                                 />
                                 <EditableInput title={task.title} changeTitle={changeTaskTitle}/>
-                                {/*<span>{task.title}</span>*/}
                             </li>
                         )
                     })

@@ -4,18 +4,20 @@ import {InputForm} from "./components/input-form/InputForm";
 import {EditableInput} from "./components/editable-input/EditableInput";
 
 type PropsType = {
+    todolistId: string,
     title: string;
     tasks: Array<TaskType>;
-    addTask: (title: string) => void;
-    removeTask: (id: string) => void;
-    setTaskFilter: (value: FilterValuesType) => void;
-    changeTaskStatus: (id: string, isDone: boolean) => void;
-    changeTaskTitle: (id: string, title: string) => void;
+    filter: FilterValuesType;
+    addTask: (todolistId: string, title: string) => void;
+    removeTask: (todolistId: string, id: string) => void;
+    setTaskFilter: (filter: FilterValuesType) => void;
+    changeTaskStatus: (todolistId: string, id: string, isDone: boolean) => void;
+    changeTaskTitle: (todolistId: string, id: string, title: string) => void;
 }
 export const Todolist = (props: PropsType) => {
 
     const addTask = (value: string) => {
-        props.addTask(value)
+        props.addTask(props.todolistId, value)
     }
 
     const onClickFilterHandler = (value: FilterValuesType) => {
@@ -30,15 +32,15 @@ export const Todolist = (props: PropsType) => {
                 {
                     props.tasks.map((task: TaskType) => {
                         const onChangeCheckboxHandler = (isDone: boolean) => {
-                            props.changeTaskStatus(task.id, isDone)
+                            props.changeTaskStatus(props.todolistId, task.id, isDone)
                         }
                         const changeTaskTitle = (title: string) => {
-                            props.changeTaskTitle(task.id, title);
+                            props.changeTaskTitle(props.todolistId, task.id, title);
                         }
 
                         return (
                             <li key={task.id}>
-                                <button onClick={() => props.removeTask(task.id)}>x</button>
+                                <button onClick={() => props.removeTask(props.todolistId, task.id)}>x</button>
                                 <input type='checkbox' checked={task.isDone}
                                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
                                            onChangeCheckboxHandler(event.currentTarget.checked)}

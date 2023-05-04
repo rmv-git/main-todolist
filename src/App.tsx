@@ -6,7 +6,7 @@ import {FilterValuesType, TasksType, TaskType, TodolistType} from "./types";
 
 export const App = () => {
 
-    let [taskFilter, setTaskFilter] = useState<FilterValuesType>('All');
+    // let [taskFilter, setTaskFilter] = useState<FilterValuesType>('All');
 
     const todolistID1 = v1();
     const todolistID2 = v1();
@@ -73,6 +73,7 @@ export const App = () => {
 
     const changeTodolistFilter = (todolistId: string, filter: FilterValuesType) => {
         setTodolists(
+
             todolists.map(todolist => todolist.id === todolistId ? {...todolist, filter} : todolist)
         )
     }
@@ -93,10 +94,10 @@ export const App = () => {
 
                     let filteredTasks = tasks[todolist.id];
 
-                    if (taskFilter === 'Active') {
+                    if (todolist.filter === 'Active') {
                         filteredTasks = tasks[todolist.id].filter(task => !task.isDone);
                     }
-                    if (taskFilter === 'Completed') {
+                    if (todolist.filter === 'Completed') {
                         filteredTasks = tasks[todolist.id].filter(task => task.isDone);
                     }
 
@@ -106,9 +107,9 @@ export const App = () => {
                                   title={todolist.title}
                                   tasks={filteredTasks}
                                   addTask={addTask}
-                                  filter={todolist.filter}
+                                  // filter={todolist.filter}
                                   removeTask={removeTask}
-                                  setTaskFilter={setTaskFilter}
+                                  changeTodolistFilter={changeTodolistFilter}
                                   changeTaskStatus={changeTaskStatus}
                                   changeTaskTitle={changeTaskTitle}/>)
                 })

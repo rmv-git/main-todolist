@@ -7,10 +7,11 @@ type PropsType = {
     todolistId: string,
     title: string;
     tasks: Array<TaskType>;
-    filter: FilterValuesType;
+    // filter: FilterValuesType;
     addTask: (todolistId: string, title: string) => void;
     removeTask: (todolistId: string, id: string) => void;
-    setTaskFilter: (filter: FilterValuesType) => void;
+    // setTaskFilter: (filter: FilterValuesType) => void;
+    changeTodolistFilter: (todolistId: string, filter: FilterValuesType) => void;
     changeTaskStatus: (todolistId: string, id: string, isDone: boolean) => void;
     changeTaskTitle: (todolistId: string, id: string, title: string) => void;
 }
@@ -20,8 +21,8 @@ export const Todolist = (props: PropsType) => {
         props.addTask(props.todolistId, value)
     }
 
-    const onClickFilterHandler = (value: FilterValuesType) => {
-        props.setTaskFilter(value);
+    const onClickFilterHandler = (filter: FilterValuesType) => {
+        props.changeTodolistFilter(props.todolistId, filter);
     }
 
     return (
@@ -37,6 +38,15 @@ export const Todolist = (props: PropsType) => {
                         const changeTaskTitle = (title: string) => {
                             props.changeTaskTitle(props.todolistId, task.id, title);
                         }
+
+                        // let filteredTasks
+                        //
+                        // if (props.filter === 'Active') {
+                        //     filteredTasks = props.tasks.filter(task => !task.isDone);
+                        // }
+                        // if (props.filter === 'Completed') {
+                        //     filteredTasks = props.tasks.filter(task => task.isDone);
+                        // }
 
                         return (
                             <li key={task.id}>

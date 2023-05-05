@@ -100,6 +100,7 @@ export const App = () => {
                                   todolistId={todolist.id}
                                   title={todolist.title}
                                   tasks={filteredTasks}
+                                  filter={todolist.filter}
                                   addTask={addTask}
                                   removeTask={removeTask}
                                   changeTodolistFilter={changeTodolistFilter}

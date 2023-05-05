@@ -3,6 +3,7 @@ import {v1} from 'uuid';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {FilterValuesType, TasksType, TaskType, TodolistType} from "./types";
+import {InputForm} from "./components/input-form/InputForm";
 
 export const App = () => {
 
@@ -34,6 +35,7 @@ export const App = () => {
     const addTask = (todolistId: string, title: string) => {
         const task: TaskType = {id: v1(), title: title, isDone: false};
         setTasks({
+            ...tasks,
             [todolistId]: [...tasks[todolistId], task]
         })
     }
@@ -67,9 +69,20 @@ export const App = () => {
             todolists.map(todolist => todolist.id === todolistId ? {...todolist, title} : todolist)
         )
     }
+    const addTodolist = (title: string) => {
+        const todolistId = v1();
+        const todolist: TodolistType = {id: todolistId, title, filter: 'All'};
+        setTodolists(
+            [...todolists, todolist]
+        )
+        setTasks({...tasks, [todolistId]: []})
+    }
 
     return (
         <div className="App">
+            <div>
+                <InputForm addTask={(value) => addTodolist(value)}/>
+            </div>
             {
                 todolists.map((todolist: TodolistType) => {
 

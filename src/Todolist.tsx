@@ -33,7 +33,7 @@ export const Todolist = (props: PropsType) => {
             <h3>
                 <EditableInput title={props.title} changeTitle={changeTodolistTitle}/>
             </h3>
-            <InputForm addTask={(value) => addTask(value)}/>
+            <InputForm addTask={addTask}/>
             <ul style={{listStyle: "none"}}>
                 {
                     props.tasks.map((task: TaskType) => {

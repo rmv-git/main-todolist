@@ -10,7 +10,7 @@ import {
     changeTodolistTitleAC,
     todolistsReducer
 } from "./store/todolists-reducer";
-import {tasksReducer} from "./store/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./store/tasks-reducer";
 
 export const App = () => {
 
@@ -62,6 +62,7 @@ export const App = () => {
         }
     );
     const addTask = (todolistId: string, title: string) => {
+        dispatchToTasks(addTaskAC(todolistId, title));
         // const task: TaskType = {id: v1(), title: title, isDone: false};
         // setTasks({
         //     ...tasks,
@@ -69,6 +70,7 @@ export const App = () => {
         // })
     }
     const removeTask = (todolistId: string, id: string) => {
+        dispatchToTasks(removeTaskAC(todolistId, id))
         // setTasks({
         //     ...tasks, [todolistId]: tasks[todolistId].filter(
         //         task => task.id !== id
@@ -76,12 +78,14 @@ export const App = () => {
         // })
     }
     const changeTaskStatus = (todolistId: string, id: string, isDone: boolean) => {
+        dispatchToTasks(changeTaskStatusAC(todolistId, id, isDone))
         // setTasks({
         //     ...tasks, [todolistId]: tasks[todolistId].map(
         //         task => task.id === id ? {...task, isDone} : task)
         // })
     }
     const changeTaskTitle = (todolistId: string, id: string, title: string) => {
+        dispatchToTasks(changeTaskTitleAC(todolistId, id, title))
         // setTasks({
         //     ...tasks, [todolistId]: tasks[todolistId].map(
         //         task => task.id === id ? {...task, title} : task)

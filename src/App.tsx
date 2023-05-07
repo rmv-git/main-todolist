@@ -7,7 +7,7 @@ import {InputForm} from "./components/input-form/InputForm";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, removeTodolistAC,
     todolistsReducer
 } from "./store/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./store/tasks-reducer";
@@ -116,6 +116,12 @@ export const App = () => {
         // setTasks({...tasks, [todolistId]: []})
     }
 
+    const removeTodolist = (todolistId: string) => {
+        const action = removeTodolistAC(todolistId);
+        dispatchToTodolists(action)
+        dispatchToTasks(action);
+    }
+
     return (
         <div className="App">
             <div>
@@ -144,7 +150,8 @@ export const App = () => {
                                   changeTodolistFilter={changeTodolistFilter}
                                   changeTaskStatus={changeTaskStatus}
                                   changeTaskTitle={changeTaskTitle}
-                                  changeTodolistTitle={changeTodolistTitle}/>)
+                                  changeTodolistTitle={changeTodolistTitle}
+                                  removeTodolist={removeTodolist}/>)
                 })
             }
         </div>

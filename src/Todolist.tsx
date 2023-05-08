@@ -34,6 +34,15 @@ export const Todolist = (props: PropsType) => {
         props.removeTodolist(props.todolistId);
     }
 
+    let filteredTasks = props.tasks;
+
+    if (props.filter === 'Active') {
+        filteredTasks = props.tasks.filter(task => !task.isDone);
+    }
+    if (props.filter === 'Completed') {
+        filteredTasks = props.tasks.filter(task => task.isDone);
+    }
+
     return (
         <div>
             <h3>
@@ -43,7 +52,7 @@ export const Todolist = (props: PropsType) => {
             <InputForm addTask={addTask}/>
             <ul style={{listStyle: "none"}}>
                 {
-                    props.tasks.map((task: TaskType) => <Task todolistId={props.todolistId}
+                    filteredTasks.map((task: TaskType) => <Task todolistId={props.todolistId}
                                                               key={task.id}
                                                               task={task}
                                                               changeTaskTitle={props.changeTaskTitle}

@@ -1,7 +1,8 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {FilterValuesType, TaskType} from "./types";
 import {InputForm} from "./components/input-form/InputForm";
 import {EditableInput} from "./components/editable-input/EditableInput";
+import {Task} from "./Task";
 
 type PropsType = {
     todolistId: string,
@@ -42,25 +43,12 @@ export const Todolist = (props: PropsType) => {
             <InputForm addTask={addTask}/>
             <ul style={{listStyle: "none"}}>
                 {
-                    props.tasks.map((task: TaskType) => {
-                        const onChangeCheckboxHandler = (isDone: boolean) => {
-                            props.changeTaskStatus(props.todolistId, task.id, isDone)
-                        }
-                        const changeTaskTitle = (title: string) => {
-                            props.changeTaskTitle(props.todolistId, task.id, title);
-                        }
-
-                        return (
-                            <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <button onClick={() => props.removeTask(props.todolistId, task.id)}>x</button>
-                                <input type='checkbox' checked={task.isDone}
-                                       onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                                           onChangeCheckboxHandler(event.currentTarget.checked)}
-                                />
-                                <EditableInput title={task.title} changeTitle={changeTaskTitle}/>
-                            </li>
-                        )
-                    })
+                    props.tasks.map((task: TaskType) => <Task todolistId={props.todolistId}
+                                                              key={task.id}
+                                                              task={task}
+                                                              changeTaskTitle={props.changeTaskTitle}
+                                                              removeTask={props.removeTask}
+                                                              onChangeCheckboxHandler={props.changeTaskStatus}/>)
                 }
             </ul>
             <div>

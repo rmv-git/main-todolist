@@ -41,64 +41,47 @@ export const tasksReducer = (state = initialState, action: ActionsType | AddTodo
     }
 }
 
+type AddTaskActionType = ReturnType<typeof addTaskAC>;
+type RemoveTaskActionType = ReturnType<typeof removeTaskAC>;
+type ChangeTaskStatusActionType = ReturnType<typeof changeTaskStatusAC>;
+type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>;
+
 type ActionsType = AddTaskActionType
     | RemoveTaskActionType
     | ChangeTaskStatusActionType
     | ChangeTaskTitleActionType;
 
-type AddTaskActionType = {
-    type: 'ADD_TASK'
-    todolistId: string
-    title: string
-}
-type RemoveTaskActionType = {
-    type: 'REMOVE_TASK'
-    todolistId: string
-    taskId: string
-}
-type ChangeTaskTitleActionType = {
-    type: 'CHANGE_TASK_TITLE'
-    todolistId: string
-    taskId: string
-    title: string
-}
-type ChangeTaskStatusActionType = {
-    type: 'CHANGE_TASK_STATUS'
-    todolistId: string
-    taskId: string
-    isDone: boolean
-}
 
-export const addTaskAC = (todolistId: string, title: string): AddTaskActionType => {
+export const addTaskAC = (todolistId: string, title: string) => {
     return {
         type: 'ADD_TASK',
         todolistId,
         title,
-    }
+    } as const
 }
 
-export const removeTaskAC = (todolistId: string, taskId: string): RemoveTaskActionType => {
+export const removeTaskAC = (todolistId: string, taskId: string) => {
     return {
         type: 'REMOVE_TASK',
         todolistId,
         taskId,
-    }
+    } as const
 }
 
-export const changeTaskTitleAC = (todolistId: string, taskId: string, title: string): ChangeTaskTitleActionType => {
+export const changeTaskTitleAC = (todolistId: string, taskId: string, title: string) => {
     return {
         type: 'CHANGE_TASK_TITLE',
         todolistId,
         taskId,
         title,
-    }
+    } as const
 
 }
-export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: boolean): ChangeTaskStatusActionType => {
+export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: boolean) => {
     return {
         type: 'CHANGE_TASK_STATUS',
         todolistId,
         taskId,
         isDone,
-    }
+    } as const
 }

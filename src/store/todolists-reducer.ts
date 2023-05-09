@@ -24,55 +24,41 @@ export const todolistsReducer = (state = initialState, action: ActionsType) => {
     }
 }
 
+type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitleAC>;
+type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilterAC>;
+export type AddTodolistActionType = ReturnType<typeof addTodolistAC>;
+export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>;
+
 type ActionsType = ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
     | AddTodolistActionType
     | RemoveTodolistActionType;
 
-type ChangeTodolistTitleActionType = {
-    type: 'CHANGE_TODOLIST_TITLE'
-    todolistId: string
-    title: string
-}
-type ChangeTodolistFilterActionType = {
-    type: 'CHANGE_TODOLIST_FILTER'
-    todolistId: string
-    filter: FilterValuesType
-}
-export type AddTodolistActionType = {
-    type: 'ADD_TODOLIST'
-    todolistId: string
-    title: string
-}
-export type RemoveTodolistActionType = {
-    type: 'REMOVE_TODOLIST'
-    todolistId: string;
-}
-export const changeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitleAC = (todolistId: string, title: string) => {
     return {
         type: 'CHANGE_TODOLIST_TITLE',
         todolistId,
         title,
-    }
+    } as const
 }
-export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
+export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesType) => {
     return {
         type: 'CHANGE_TODOLIST_FILTER',
         todolistId,
         filter,
-    }
+    } as const
 }
 
-export const addTodolistAC = (title: string): AddTodolistActionType => {
+export const addTodolistAC = (title: string) => {
     return {
         type: 'ADD_TODOLIST',
         todolistId: v1(),
         title,
-    }
+    } as const
 }
-export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+export const removeTodolistAC = (todolistId: string) => {
     return {
         type: 'REMOVE_TODOLIST',
         todolistId,
-    }
+    } as const
 }

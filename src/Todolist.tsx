@@ -47,7 +47,7 @@ export const Todolist = memo((props: PropsType) => {
     return (
         <div>
             <h3>
-                <EditableInput title={props.title} changeTitle={changeTodolistTitle}/>
+                <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
                 <button onClick={removeTodolist}>x</button>
             </h3>
             <InputForm addTask={addTask}/>

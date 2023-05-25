@@ -1,14 +1,14 @@
 import React, {ChangeEvent, memo, useState} from 'react';
 
 type PropsType = {
-    title: string;
+    value: string;
     changeTitle: (value: string) => void;
 }
 
 export const EditableInput = memo((props: PropsType) => {
 
     const [edit, setEdit] = useState<boolean>(false);
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(props.value);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
@@ -31,7 +31,7 @@ export const EditableInput = memo((props: PropsType) => {
                              onChange={onChangeHandler}
                              onBlur={deactivateEdit}
                              autoFocus/>
-                    : <span onDoubleClick={activateEdit}>{props.title}</span>
+                    : <span onDoubleClick={activateEdit}>{props.value}</span>
             }
         </>
     );

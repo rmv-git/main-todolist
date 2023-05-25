@@ -27,7 +27,7 @@ export const Task = memo((props: PropsType) => {
             <input type='checkbox'
                    checked={props.task.isDone}
                    onChange={onChangeCheckboxHandler}/>
-            <EditableInput title={props.task.title}
+            <EditableInput value={props.task.title}
                            changeTitle={(value) => changeTaskTitle(props.task.id, value)}/>
         </li>
     );

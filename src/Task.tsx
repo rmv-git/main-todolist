@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import {EditableInput} from "./components/editable-input/EditableInput";
 import {TaskType} from "./types";
 
@@ -9,7 +9,7 @@ type PropsType = {
     onChangeCheckboxHandler: (todolistId: string, id: string, isDone: boolean) => void;
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void;
 }
-export const Task = (props: PropsType) => {
+export const Task = memo((props: PropsType) => {
 
     const removeTask = () => {
         props.removeTask(props.todolistId, props.task.id);
@@ -31,4 +31,4 @@ export const Task = (props: PropsType) => {
                            changeTitle={(value) => changeTaskTitle(props.task.id, value)}/>
         </li>
     );
-};
+});

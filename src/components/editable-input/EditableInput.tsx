@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 
 type PropsType = {
     title: string;
     changeTitle: (value: string) => void;
 }
 
-export const EditableInput = (props: PropsType) => {
+export const EditableInput = memo((props: PropsType) => {
 
     const [edit, setEdit] = useState<boolean>(false);
     const [value, setValue] = useState('');
@@ -35,4 +35,4 @@ export const EditableInput = (props: PropsType) => {
             }
         </>
     );
-};
+});

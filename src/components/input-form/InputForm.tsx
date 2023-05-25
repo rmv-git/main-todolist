@@ -1,9 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 
 type PropsType = {
     addTask: (value: string) => void;
 }
-export const InputForm = (props: PropsType) => {
+export const InputForm = memo((props: PropsType) => {
 
     const [value, setValue] = useState('');
 
@@ -39,4 +39,4 @@ export const InputForm = (props: PropsType) => {
             <button onClick={onClickHandler}>+</button>
         </div>
     );
-};
+});

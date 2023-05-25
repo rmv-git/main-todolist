@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {FilterValuesType, TasksType, TodolistType} from "./types";
@@ -13,7 +13,7 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store/redux-store";
 
-export const App = () => {
+export const App = memo(() => {
 
     const todolists = useSelector<RootStateType, Array<TodolistType>>(
         state => state.todolistsReducer);
@@ -21,32 +21,30 @@ export const App = () => {
         state => state.tasksReducer);
     const dispatch = useDispatch();
 
-    const addTask = (todolistId: string, title: string) => {
+    const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(addTaskAC(todolistId, title));
-    }
-    const removeTask = (todolistId: string, id: string) => {
+    }, []);
+    const removeTask = useCallback((todolistId: string, id: string) => {
         dispatch(removeTaskAC(todolistId, id));
-    }
-    const changeTaskStatus = (todolistId: string, id: string, isDone: boolean) => {
+    }, []);
+    const changeTaskStatus = useCallback((todolistId: string, id: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(todolistId, id, isDone));
-    }
-    const changeTaskTitle = (todolistId: string, id: string, title: string) => {
+    }, []);
+    const changeTaskTitle = useCallback((todolistId: string, id: string, title: string) => {
         dispatch(changeTaskTitleAC(todolistId, id, title));
-    }
-
-    const changeTodolistFilter = (todolistId: string, filter: FilterValuesType) => {
+    }, []);
+    const changeTodolistFilter = useCallback((todolistId: string, filter: FilterValuesType) => {
         dispatch(changeTodolistFilterAC(todolistId, filter));
-    }
-    const changeTodolistTitle = (todolistId: string, title: string) => {
+    }, []);
+    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleAC(todolistId, title));
-    }
-    const addTodolist = (title: string) => {
+    }, []);
+    const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title));
-    }
-
-    const removeTodolist = (todolistId: string) => {
+    }, []);
+    const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId));
-    }
+    }, []);
 
     return (
         <div className="App">
@@ -75,4 +73,4 @@ export const App = () => {
             }
         </div>
     );
-}
+})

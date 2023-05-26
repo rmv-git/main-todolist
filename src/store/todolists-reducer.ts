@@ -1,6 +1,6 @@
 // import {FilterValuesType} from "../types";
 import {v1} from "uuid";
-import {FilterValuesType, TodolistDomainType} from "../types/types";
+import {FilterValuesType, TodolistDomainType, TodolistResponseType} from "../types/types";
 
 const initialState: Array<TodolistDomainType> = [];
 export const todolistsReducer = (state = initialState, action: ActionsType): TodolistDomainType[] => {
@@ -16,10 +16,23 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
                 filter: action.filter
             } : todolist)
         case 'ADD_TODOLIST':
-            const todolist: TodolistDomainType = {id: action.todolistId, title: action.title, filter: 'All', order: 0, addedDate: ''};
+            const todolist: TodolistDomainType = {
+                id: action.todolistId,
+                title: action.title,
+                filter: 'All',
+                order: 0,
+                addedDate: ''
+            };
             return [...state, todolist]
         case 'REMOVE_TODOLIST':
             return state.filter(todolist => todolist.id !== action.todolistId)
+        case 'GET_TODOLISTS': {
+            return action.todolists.map(todolist => {
+                return {
+                    ...todolist, filter: 'All'
+                }
+            })
+        }
         default:
             return state;
     }
@@ -29,11 +42,13 @@ type ChangeTodolistTitleActionType = ReturnType<typeof changeTodolistTitleAC>;
 type ChangeTodolistFilterActionType = ReturnType<typeof changeTodolistFilterAC>;
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>;
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>;
+export type GetTodolistsActionType = ReturnType<typeof getTodolistsAC>;
 
 type ActionsType = ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
     | AddTodolistActionType
-    | RemoveTodolistActionType;
+    | RemoveTodolistActionType
+    | GetTodolistsActionType;
 
 export const changeTodolistTitleAC = (todolistId: string, title: string) => {
     return {
@@ -61,5 +76,12 @@ export const removeTodolistAC = (todolistId: string) => {
     return {
         type: 'REMOVE_TODOLIST',
         todolistId,
+    } as const
+}
+
+export const getTodolistsAC = (todolists: TodolistResponseType[]) => {
+    return {
+        type: 'GET_TODOLISTS',
+        todolists,
     } as const
 }

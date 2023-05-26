@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 // import {FilterValuesType, TodolistType} from "./types";
@@ -6,13 +6,14 @@ import {InputForm} from "./components/input-form/InputForm";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, getTodolistsAC,
     removeTodolistAC
 } from "./store/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./store/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store/redux-store";
 import {FilterValuesType, TasksType, TodolistDomainType} from "./types/types";
+import {todolistsAPI} from "./api/API";
 
 export const App = memo(() => {
 
@@ -21,6 +22,12 @@ export const App = memo(() => {
     const tasks = useSelector<RootStateType, TasksType>(
         state => state.tasksReducer);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        todolistsAPI.getTodolists()
+            .then(response => dispatch(getTodolistsAC(response.data))
+            )
+    }, []);
 
     const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(addTaskAC(todolistId, title));

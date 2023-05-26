@@ -1,10 +1,10 @@
 import {TaskPriorities, TaskResponseType, TaskStatuses, TasksType} from "./../types/types";
-import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
+import {AddTodolistActionType, GetTodolistsActionType, RemoveTodolistActionType} from "./todolists-reducer";
 import {v1} from "uuid";
 
 const initialState: TasksType = {};
 
-export const tasksReducer = (state = initialState, action: ActionsType | AddTodolistActionType | RemoveTodolistActionType): TasksType => {
+export const tasksReducer = (state = initialState, action: ActionsType | AddTodolistActionType | RemoveTodolistActionType | GetTodolistsActionType): TasksType => {
     switch (action.type) {
         case 'ADD_TODOLIST':
             return {...state, [action.todolistId]: []}
@@ -44,10 +44,20 @@ export const tasksReducer = (state = initialState, action: ActionsType | AddTodo
                     task => task.id === action.taskId ? {...task, isDone: action.isDone} : task
                 )
             }
-        case 'REMOVE_TODOLIST':
+        case 'REMOVE_TODOLIST': {
             const copyState = {...state};
             delete copyState[action.todolistId];
             return copyState;
+        }
+        case 'GET_TODOLISTS': {
+            const copyState = {...state};
+
+            action.todolists.forEach(todolist => {
+                copyState[todolist.id] = [];
+            })
+
+            return copyState;
+        }
         default:
             return state
     }

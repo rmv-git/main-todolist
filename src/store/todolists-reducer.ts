@@ -1,6 +1,10 @@
 // import {FilterValuesType} from "../types";
 import {v1} from "uuid";
 import {FilterValuesType, TodolistDomainType, TodolistResponseType} from "../types/types";
+import {AnyAction, Dispatch} from "redux";
+import {todolistsAPI} from "../api/API";
+import {ThunkAction} from "redux-thunk";
+import {AppDispatch, RootStateType} from "./redux-store";
 
 const initialState: Array<TodolistDomainType> = [];
 export const todolistsReducer = (state = initialState, action: ActionsType): TodolistDomainType[] => {
@@ -85,3 +89,19 @@ export const getTodolistsAC = (todolists: TodolistResponseType[]) => {
         todolists,
     } as const
 }
+
+export const getTodolistsThunk = (dispatch: Dispatch) => {
+    return todolistsAPI.getTodolists()
+        .then(response => {
+            dispatch(getTodolistsAC(response.data))
+        })
+}
+// export type TypedThunk<R = void> = ThunkAction<R, RootStateType, unknown, ActionsType>;
+
+// export const getTodolistsThunkCreator = (): ThunkAction<void, RootStateType, unknown, ActionsType> => (dispatch: AppDispatch) => {
+//         return todolistsAPI.getTodolists()
+//             .then(response => {
+//                 dispatch(getTodolistsAC(response.data))
+//             })
+//
+// }

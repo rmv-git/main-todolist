@@ -6,7 +6,7 @@ import {InputForm} from "./components/input-form/InputForm";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, getTodolistsAC,
+    changeTodolistTitleAC, getTodolistsAC, getTodolistsThunk,
     removeTodolistAC
 } from "./store/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./store/tasks-reducer";
@@ -24,9 +24,10 @@ export const App = memo(() => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        todolistsAPI.getTodolists()
-            .then(response => dispatch(getTodolistsAC(response.data))
-            )
+        // todolistsAPI.getTodolists()
+        //     .then(response => dispatch(getTodolistsAC(response.data))
+        //     )
+        getTodolistsThunk(dispatch);
     }, []);
 
     const addTask = useCallback((todolistId: string, title: string) => {

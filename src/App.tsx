@@ -1,7 +1,7 @@
 import React, {memo, useCallback} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
-import {FilterValuesType, TasksType, TodolistType} from "./types";
+// import {FilterValuesType, TodolistType} from "./types";
 import {InputForm} from "./components/input-form/InputForm";
 import {
     addTodolistAC,
@@ -12,10 +12,11 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./store/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store/redux-store";
+import {FilterValuesType, TasksType, TodolistDomainType} from "./types/types";
 
 export const App = memo(() => {
 
-    const todolists = useSelector<RootStateType, Array<TodolistType>>(
+    const todolists = useSelector<RootStateType, Array<TodolistDomainType>>(
         state => state.todolistsReducer);
     const tasks = useSelector<RootStateType, TasksType>(
         state => state.tasksReducer);
@@ -52,7 +53,7 @@ export const App = memo(() => {
                 <InputForm addTask={(value) => addTodolist(value)}/>
             </div>
             {
-                todolists.map((todolist: TodolistType) => {
+                todolists.map((todolist) => {
 
                     let allTasks = tasks[todolist.id];
 

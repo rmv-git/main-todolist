@@ -1,13 +1,14 @@
 import React, {memo, useCallback} from "react";
-import {FilterValuesType, TaskType} from "./types";
+// import {FilterValuesType, TaskType} from "./types";
 import {InputForm} from "./components/input-form/InputForm";
 import {EditableInput} from "./components/editable-input/EditableInput";
 import {Task} from "./Task";
+import {FilterValuesType, TaskResponseType, TaskStatuses} from "./types/types";
 
 type PropsType = {
     todolistId: string,
     title: string;
-    tasks: Array<TaskType>;
+    tasks: Array<TaskResponseType>;
     filter: FilterValuesType;
     addTask: (todolistId: string, title: string) => void;
     removeTask: (todolistId: string, id: string) => void;
@@ -38,10 +39,10 @@ export const Todolist = memo((props: PropsType) => {
     let filteredTasks = props.tasks;
 
     if (props.filter === 'Active') {
-        filteredTasks = props.tasks.filter(task => !task.isDone);
+        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.InProgress );
     }
     if (props.filter === 'Completed') {
-        filteredTasks = props.tasks.filter(task => task.isDone);
+        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.Completed);
     }
 
     return (
@@ -53,7 +54,7 @@ export const Todolist = memo((props: PropsType) => {
             <InputForm addTask={addTask}/>
             <ul style={{listStyle: "none"}}>
                 {
-                    filteredTasks.map((task: TaskType) => <Task todolistId={props.todolistId}
+                    filteredTasks.map((task: TaskResponseType) => <Task todolistId={props.todolistId}
                                                                 key={task.id}
                                                                 task={task}
                                                                 changeTaskTitle={props.changeTaskTitle}

@@ -1,15 +1,27 @@
-import {TasksType, TaskType} from "../types";
+import {TaskPriorities, TaskResponseType, TaskStatuses, TasksType} from "./../types/types";
 import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
 import {v1} from "uuid";
 
 const initialState: TasksType = {};
 
-export const tasksReducer = (state = initialState, action: ActionsType | AddTodolistActionType | RemoveTodolistActionType) => {
+export const tasksReducer = (state = initialState, action: ActionsType | AddTodolistActionType | RemoveTodolistActionType): TasksType => {
     switch (action.type) {
         case 'ADD_TODOLIST':
             return {...state, [action.todolistId]: []}
         case 'ADD_TASK':
-            const task: TaskType = {id: v1(), title: action.title, isDone: false};
+            const task: TaskResponseType = {
+                id: v1(),
+                title: action.title,
+                addedDate: '',
+                status: TaskStatuses.New,
+                priority: TaskPriorities.Low,
+                deadline: '',
+                completed: false,
+                startDate: '',
+                description: '',
+                order: 0,
+                todoListId: action.todolistId,
+            };
             return {
                 ...state,
                 [action.todolistId]: [...state[action.todolistId], task]

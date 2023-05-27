@@ -1,9 +1,11 @@
-import React, {memo, useCallback} from "react";
+import React, {memo, useCallback, useEffect} from "react";
 // import {FilterValuesType, TaskType} from "./types";
 import {InputForm} from "./components/input-form/InputForm";
 import {EditableInput} from "./components/editable-input/EditableInput";
 import {Task} from "./Task";
 import {FilterValuesType, TaskResponseType, TaskStatuses} from "./types/types";
+import {useDispatch} from "react-redux";
+import {getTasksThunk} from "./store/tasks-reducer";
 
 type PropsType = {
     todolistId: string,
@@ -19,6 +21,13 @@ type PropsType = {
     removeTodolist: (todolistId: string) => void;
 }
 export const Todolist = memo((props: PropsType) => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(getTasksThunk(props.todolistId))
+    }, []);
 
     const addTask = useCallback((value: string) => {
         props.addTask(props.todolistId, value)

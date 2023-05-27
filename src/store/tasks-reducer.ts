@@ -1,6 +1,15 @@
 import {TaskPriorities, TaskResponseType, TaskStatuses, TasksType} from "./../types/types";
-import {AddTodolistActionType, GetTodolistsActionType, RemoveTodolistActionType} from "./todolists-reducer";
+import {
+    AddTodolistActionType,
+    getTodolistsAC,
+    GetTodolistsActionType,
+    RemoveTodolistActionType
+} from "./todolists-reducer";
 import {v1} from "uuid";
+import {AnyAction, Dispatch} from "redux";
+import {todolistsAPI} from "../api/API";
+import {AppDispatch, RootStateType} from "./redux-store";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 const initialState: TasksType = {};
 
@@ -58,6 +67,10 @@ export const tasksReducer = (state = initialState, action: ActionsType | AddTodo
 
             return copyState;
         }
+        case 'GET_TASKS':
+            return {
+                ...state, tasks: action.tasks
+            }
         default:
             return state
     }
@@ -67,11 +80,13 @@ type AddTaskActionType = ReturnType<typeof addTaskAC>;
 type RemoveTaskActionType = ReturnType<typeof removeTaskAC>;
 type ChangeTaskStatusActionType = ReturnType<typeof changeTaskStatusAC>;
 type ChangeTaskTitleActionType = ReturnType<typeof changeTaskTitleAC>;
+type GetTasksActionType = ReturnType<typeof getTasksAC>;
 
 type ActionsType = AddTaskActionType
     | RemoveTaskActionType
     | ChangeTaskStatusActionType
-    | ChangeTaskTitleActionType;
+    | ChangeTaskTitleActionType
+    | GetTasksActionType;
 
 
 export const addTaskAC = (todolistId: string, title: string) => {
@@ -106,4 +121,20 @@ export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: b
         taskId,
         isDone,
     } as const
+}
+export const getTasksAC = (todoListId: string, tasks: TaskResponseType[]) => {
+    return {
+        type: 'GET_TASKS',
+        todoListId,
+        tasks
+    } as const
+}
+
+export const getTasksThunk = (todolistId: string)/*: ThunkAction<void, RootStateType, unknown, GetTasksActionType>*/ => {
+    return () => {
+        todolistsAPI.getTasks(todolistId)
+            .then((res) => {
+                getTasksAC(todolistId, res.data.items)
+            })
+    }
 }

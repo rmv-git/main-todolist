@@ -90,18 +90,9 @@ export const getTodolistsAC = (todolists: TodolistResponseType[]) => {
     } as const
 }
 
-export const getTodolistsThunk = (dispatch: Dispatch) => {
-    return todolistsAPI.getTodolists()
+export const getTodolistsThunk = () => (dispatch: Dispatch) => {
+    todolistsAPI.getTodolists()
         .then(response => {
             dispatch(getTodolistsAC(response.data))
         })
 }
-// export type TypedThunk<R = void> = ThunkAction<R, RootStateType, unknown, ActionsType>;
-
-// export const getTodolistsThunkCreator = (): ThunkAction<void, RootStateType, unknown, ActionsType> => (dispatch: AppDispatch) => {
-//         return todolistsAPI.getTodolists()
-//             .then(response => {
-//                 dispatch(getTodolistsAC(response.data))
-//             })
-//
-// }

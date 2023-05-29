@@ -11,7 +11,7 @@ import {
 } from "./store/todolists-reducer";
 import {
     addTaskAC,
-    changeTaskStatusAC,
+    changeTaskStatusAC, changeTaskStatusTC,
     changeTaskTitleAC, changeTaskTitleTC,
     createTaskTC,
     removeTaskAC,
@@ -46,8 +46,8 @@ export const App = memo(() => {
     const removeTask = useCallback((todolistId: string, id: string) => {
         dispatch(removeTaskTC(todolistId, id));
     }, []);
-    const changeTaskStatus = useCallback((todolistId: string, id: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(todolistId, id, isDone));
+    const changeTaskStatus = useCallback((todolistId: string, id: string, status: TaskStatuses) => {
+        dispatch(changeTaskStatusTC(todolistId, id, {status}));
     }, []);
     const changeTaskTitle = useCallback((todolistId: string, id: string, title: string) => {
         dispatch(changeTaskTitleTC(todolistId, id, {title} ));

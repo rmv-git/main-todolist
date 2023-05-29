@@ -48,7 +48,7 @@ export const tasksReducer = (state = initialState, action: ActionsType | AddTodo
         case 'CHANGE_TASK_STATUS':
             return {
                 ...state, [action.todolistId]: state[action.todolistId].map(
-                    task => task.id === action.taskId ? {...task, isDone: action.isDone} : task
+                    task => task.id === action.taskId ? {...task, status: action.updateModel.status} : task
                 )
             }
         case 'REMOVE_TODOLIST': {
@@ -113,12 +113,12 @@ export const changeTaskTitleAC = (todolistId: string, taskId: string, updateMode
     } as const
 
 }
-export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: boolean) => {
+export const changeTaskStatusAC = (todolistId: string, taskId: string, updateModel: UpdateTaskModelType) => {
     return {
         type: 'CHANGE_TASK_STATUS',
         todolistId,
         taskId,
-        isDone,
+        updateModel,
     } as const
 }
 export const getTasksAC = (todolistId: string, tasks: TaskResponseType[]) => {
@@ -172,6 +172,31 @@ export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTask
             dispatch(changeTaskTitleAC(todolistId, taskId, updateModel))
         })
 }
+export const changeTaskStatusTC = (todolistId: string, taskId: string, updateTaskModel: UpdateTaskDomainType) => (dispatch: Dispatch<ActionsType>, getState: () => RootStateType) => {
+
+    const state = getState();
+
+    const task = state.tasksReducer[todolistId].find((t: any) => t.id === taskId);
+    if (!task) {
+        console.warn('Error');
+        return
+    }
+
+    const updateModel: UpdateTaskModelType = {
+        title: task.title,
+        status: task.status,
+        priority: task.priority,
+        deadline: task.deadline,
+        startDate: task.startDate,
+        description: task.description,
+        ...updateTaskModel,
+    }
+
+    todolistsAPI.updateTask(todolistId, taskId, updateModel )
+        .then(response => {
+            dispatch(changeTaskStatusAC(todolistId, taskId, updateModel))
+        })
+}
 
 export type UpdateTaskDomainType = {
     title?: string
@@ -181,3 +206,4 @@ export type UpdateTaskDomainType = {
     startDate?: string
     deadline?: string
 }
+

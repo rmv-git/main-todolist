@@ -7,7 +7,7 @@ type PropsType = {
     todolistId: string;
     task: TaskResponseType;
     removeTask: (todolistId: string, taskId: string) => void;
-    onChangeCheckboxHandler: (todolistId: string, id: string, isDone: boolean) => void;
+    onChangeCheckboxHandler: (todolistId: string, id: string, status: TaskStatuses) => void;
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void;
 }
 export const Task = memo((props: PropsType) => {
@@ -16,7 +16,9 @@ export const Task = memo((props: PropsType) => {
         props.removeTask(props.todolistId, props.task.id);
     }
     const onChangeCheckboxHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        props.onChangeCheckboxHandler(props.todolistId, props.task.id, event.currentTarget.checked);
+        props.onChangeCheckboxHandler(props.todolistId, props.task.id,
+            event.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New);
+        console.log(event.currentTarget.checked)
     }
     const changeTaskTitle = (taskId: string, title: string) => {
         props.changeTaskTitle(props.todolistId, taskId, title);

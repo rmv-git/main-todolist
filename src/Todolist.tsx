@@ -48,7 +48,7 @@ export const Todolist = memo((props: PropsType) => {
     let filteredTasks = props.tasks;
 
     if (props.filter === 'Active') {
-        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.InProgress);
+        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.InProgress );
     }
     if (props.filter === 'Completed') {
         filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.Completed);
@@ -64,11 +64,11 @@ export const Todolist = memo((props: PropsType) => {
             <ul style={{listStyle: "none"}}>
                 {
                     filteredTasks.map((task: TaskResponseType) => <Task todolistId={props.todolistId}
-                                                                        key={task.id}
-                                                                        task={task}
-                                                                        changeTaskTitle={props.changeTaskTitle}
-                                                                        removeTask={props.removeTask}
-                                                                        onChangeCheckboxHandler={props.changeTaskStatus}/>)
+                                                                key={task.id}
+                                                                task={task}
+                                                                changeTaskTitle={props.changeTaskTitle}
+                                                                removeTask={props.removeTask}
+                                                                onChangeCheckboxHandler={props.changeTaskStatus}/>)
                 }
             </ul>
             <div>

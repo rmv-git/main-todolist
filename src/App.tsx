@@ -12,14 +12,21 @@ import {
 import {
     addTaskAC,
     changeTaskStatusAC,
-    changeTaskTitleAC,
+    changeTaskTitleAC, changeTaskTitleTC,
     createTaskTC,
     removeTaskAC,
     removeTaskTC
 } from "./store/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType, useAppDispatch} from "./store/redux-store";
-import {FilterValuesType, TasksType, TodolistDomainType} from "./types/types";
+import {
+    FilterValuesType,
+    TaskPriorities,
+    TaskStatuses,
+    TasksType,
+    TodolistDomainType,
+    UpdateTaskModelType
+} from "./types/types";
 
 export const App = memo(() => {
 
@@ -43,7 +50,7 @@ export const App = memo(() => {
         dispatch(changeTaskStatusAC(todolistId, id, isDone));
     }, []);
     const changeTaskTitle = useCallback((todolistId: string, id: string, title: string) => {
-        dispatch(changeTaskTitleAC(todolistId, id, title));
+        dispatch(changeTaskTitleTC(todolistId, id, {title} ));
     }, []);
     const changeTodolistFilter = useCallback((todolistId: string, filter: FilterValuesType) => {
         dispatch(changeTodolistFilterAC(todolistId, filter));

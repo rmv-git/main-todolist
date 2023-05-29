@@ -9,9 +9,16 @@ import {
     getTodolistsThunk,
     removeTodolistAC
 } from "./store/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./store/tasks-reducer";
+import {
+    addTaskAC,
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    createTaskTC,
+    removeTaskAC,
+    removeTaskTC
+} from "./store/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "./store/redux-store";
+import {RootStateType, useAppDispatch} from "./store/redux-store";
 import {FilterValuesType, TasksType, TodolistDomainType} from "./types/types";
 
 export const App = memo(() => {
@@ -20,18 +27,17 @@ export const App = memo(() => {
         state => state.todolistsReducer);
     const tasks = useSelector<RootStateType, TasksType>(
         state => state.tasksReducer);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getTodolistsThunk())
     }, []);
 
     const addTask = useCallback((todolistId: string, title: string) => {
-        dispatch(addTaskAC(todolistId, title));
+        dispatch(createTaskTC(todolistId, title));
     }, []);
     const removeTask = useCallback((todolistId: string, id: string) => {
-        dispatch(removeTaskAC(todolistId, id));
+        dispatch(removeTaskTC(todolistId, id));
     }, []);
     const changeTaskStatus = useCallback((todolistId: string, id: string, isDone: boolean) => {
         dispatch(changeTaskStatusAC(todolistId, id, isDone));

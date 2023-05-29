@@ -6,6 +6,7 @@ import {Task} from "./Task";
 import {FilterValuesType, TaskResponseType, TaskStatuses} from "./types/types";
 import {useDispatch} from "react-redux";
 import {getTasksThunk} from "./store/tasks-reducer";
+import {useAppDispatch} from "./store/redux-store";
 
 type PropsType = {
     todolistId: string,
@@ -22,10 +23,9 @@ type PropsType = {
 }
 export const Todolist = memo((props: PropsType) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getTasksThunk(props.todolistId))
     }, []);
 
@@ -48,7 +48,7 @@ export const Todolist = memo((props: PropsType) => {
     let filteredTasks = props.tasks;
 
     if (props.filter === 'Active') {
-        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.InProgress );
+        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.InProgress);
     }
     if (props.filter === 'Completed') {
         filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.Completed);
@@ -64,11 +64,11 @@ export const Todolist = memo((props: PropsType) => {
             <ul style={{listStyle: "none"}}>
                 {
                     filteredTasks.map((task: TaskResponseType) => <Task todolistId={props.todolistId}
-                                                                key={task.id}
-                                                                task={task}
-                                                                changeTaskTitle={props.changeTaskTitle}
-                                                                removeTask={props.removeTask}
-                                                                onChangeCheckboxHandler={props.changeTaskStatus}/>)
+                                                                        key={task.id}
+                                                                        task={task}
+                                                                        changeTaskTitle={props.changeTaskTitle}
+                                                                        removeTask={props.removeTask}
+                                                                        onChangeCheckboxHandler={props.changeTaskStatus}/>)
                 }
             </ul>
             <div>

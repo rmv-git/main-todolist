@@ -14,7 +14,7 @@ const initialState: TasksType = {};
 export const tasksReducer = (state = initialState, action: ActionsType | AddTodolistActionType | RemoveTodolistActionType | GetTodolistsActionType): TasksType => {
     switch (action.type) {
         case 'ADD_TODOLIST':
-            return {...state, [action.todolistId]: []}
+            return {...state, [action.todolist.id]: []}
         case 'ADD_TASK':
             const task: TaskResponseType = {
                 id: v1(),

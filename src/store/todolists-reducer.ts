@@ -106,3 +106,12 @@ export const createTodolistThunk = (title: string) => (dispatch: Dispatch<AddTod
             }
         })
 }
+
+export const removeTodolistThunk = (todolistId: string) => (dispatch: Dispatch<RemoveTodolistActionType>) => {
+    todolistsAPI.deleteTodolist(todolistId)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(removeTodolistAC(todolistId));
+            }
+        })
+}

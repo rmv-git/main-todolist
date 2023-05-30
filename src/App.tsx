@@ -7,7 +7,7 @@ import {
     changeTodolistFilterAC,
     changeTodolistTitleAC, createTodolistThunk,
     getTodolistsThunk,
-    removeTodolistAC
+    removeTodolistAC, removeTodolistThunk
 } from "./store/todolists-reducer";
 import {
     addTaskAC,
@@ -63,7 +63,7 @@ export const App = memo(() => {
         // dispatch(addTodolistAC(title));
     }, []);
     const removeTodolist = useCallback((todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId));
+        dispatch(removeTodolistThunk(todolistId));
     }, []);
 
     return (

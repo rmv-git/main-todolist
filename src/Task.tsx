@@ -1,6 +1,5 @@
 import React, {ChangeEvent, memo} from 'react';
 import {EditableInput} from "./components/editable-input/EditableInput";
-// import {TaskType} from "./types";
 import {TaskResponseType, TaskStatuses} from "./types/types";
 
 type PropsType = {

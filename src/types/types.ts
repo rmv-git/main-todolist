@@ -58,6 +58,7 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
+
 export type UpdateTaskModelType = {
     title: string,
     description: string,

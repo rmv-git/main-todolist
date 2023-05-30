@@ -1,10 +1,7 @@
-// import {FilterValuesType} from "../types";
 import {v1} from "uuid";
 import {FilterValuesType, TodolistDomainType, TodolistResponseType} from "../types/types";
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 import {todolistsAPI} from "../api/API";
-import {ThunkAction} from "redux-thunk";
-import {AppDispatch, RootStateType} from "./redux-store";
 
 const initialState: Array<TodolistDomainType> = [];
 export const todolistsReducer = (state = initialState, action: ActionsType): TodolistDomainType[] => {

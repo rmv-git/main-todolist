@@ -1,4 +1,10 @@
-import {TaskPriorities, TaskResponseType, TaskStatuses, TasksType, UpdateTaskModelType} from "./../types/types";
+import {
+    TaskPriorities,
+    TaskResponseType,
+    TaskStatuses,
+    TasksType,
+    UpdateTaskModelType
+} from "../types/types";
 import {
     AddTodolistActionType,
     GetTodolistsActionType,
@@ -167,7 +173,7 @@ export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTask
         ...updateTaskModel,
     }
 
-    todolistsAPI.updateTask(todolistId, taskId, updateModel )
+    todolistsAPI.updateTask(todolistId, taskId, updateModel)
         .then(response => {
             dispatch(changeTaskTitleAC(todolistId, taskId, updateModel))
         })
@@ -192,7 +198,7 @@ export const changeTaskStatusTC = (todolistId: string, taskId: string, updateTas
         ...updateTaskModel,
     }
 
-    todolistsAPI.updateTask(todolistId, taskId, updateModel )
+    todolistsAPI.updateTask(todolistId, taskId, updateModel)
         .then(response => {
             dispatch(changeTaskStatusAC(todolistId, taskId, updateModel))
         })

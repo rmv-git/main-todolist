@@ -3,30 +3,16 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {InputForm} from "./components/input-form/InputForm";
 import {
-    addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, changeTodolistTitleThunk, createTodolistThunk,
+    changeTodolistTitleThunk,
+    createTodolistThunk,
     getTodolistsThunk,
-    removeTodolistAC, removeTodolistThunk
+    removeTodolistThunk
 } from "./store/todolists-reducer";
-import {
-    addTaskAC,
-    changeTaskStatusAC, changeTaskStatusTC,
-    changeTaskTitleAC, changeTaskTitleTC,
-    createTaskTC,
-    removeTaskAC,
-    removeTaskTC
-} from "./store/tasks-reducer";
-import {useDispatch, useSelector} from "react-redux";
+import {changeTaskStatusTC, changeTaskTitleTC, createTaskTC, removeTaskTC} from "./store/tasks-reducer";
+import {useSelector} from "react-redux";
 import {RootStateType, useAppDispatch} from "./store/redux-store";
-import {
-    FilterValuesType,
-    TaskPriorities,
-    TaskStatuses,
-    TasksType,
-    TodolistDomainType,
-    UpdateTaskModelType
-} from "./types/types";
+import {FilterValuesType, TaskStatuses, TasksType, TodolistDomainType} from "./types/types";
 
 export const App = memo(() => {
 
@@ -50,7 +36,7 @@ export const App = memo(() => {
         dispatch(changeTaskStatusTC(todolistId, id, {status}));
     }, []);
     const changeTaskTitle = useCallback((todolistId: string, id: string, title: string) => {
-        dispatch(changeTaskTitleTC(todolistId, id, {title} ));
+        dispatch(changeTaskTitleTC(todolistId, id, {title}));
     }, []);
     const changeTodolistFilter = useCallback((todolistId: string, filter: FilterValuesType) => {
         dispatch(changeTodolistFilterAC(todolistId, filter));

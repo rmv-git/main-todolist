@@ -5,7 +5,7 @@ import {InputForm} from "./components/input-form/InputForm";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, createTodolistThunk,
     getTodolistsThunk,
     removeTodolistAC
 } from "./store/todolists-reducer";
@@ -59,7 +59,8 @@ export const App = memo(() => {
         dispatch(changeTodolistTitleAC(todolistId, title));
     }, []);
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistAC(title));
+        dispatch(createTodolistThunk(title));
+        // dispatch(addTodolistAC(title));
     }, []);
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId));

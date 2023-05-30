@@ -20,14 +20,14 @@ export const todolistsReducer = (state = initialState, action: ActionsType): Tod
                 filter: action.filter
             } : todolist)
         case 'ADD_TODOLIST':
-            const todolist: TodolistDomainType = {
+            const todolist = {
                 id: action.todolistId,
-                title: action.title,
+                title: action.todolist.title,
                 filter: 'All',
                 order: 0,
                 addedDate: ''
             };
-            return [...state, todolist]
+            return [...state, {...action.todolist, filter: 'All'}]
         case 'REMOVE_TODOLIST':
             return state.filter(todolist => todolist.id !== action.todolistId)
         case 'GET_TODOLISTS': {
@@ -69,11 +69,11 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesT
     } as const
 }
 
-export const addTodolistAC = (title: string) => {
+export const addTodolistAC = (todolist: TodolistResponseType) => {
     return {
         type: 'ADD_TODOLIST',
         todolistId: v1(),
-        title,
+        todolist,
     } as const
 }
 export const removeTodolistAC = (todolistId: string) => {
@@ -94,5 +94,15 @@ export const getTodolistsThunk = () => (dispatch: Dispatch) => {
     todolistsAPI.getTodolists()
         .then(response => {
             dispatch(getTodolistsAC(response.data))
+        })
+}
+
+export const createTodolistThunk = (title: string) => (dispatch: Dispatch<AddTodolistActionType>) => {
+    todolistsAPI.createTodolist(title)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(addTodolistAC(response.data.data.item))
+
+            }
         })
 }

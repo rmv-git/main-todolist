@@ -115,3 +115,12 @@ export const removeTodolistThunk = (todolistId: string) => (dispatch: Dispatch<R
             }
         })
 }
+
+export const changeTodolistTitleThunk = (todolistId: string, title: string) => (dispatch: Dispatch<ChangeTodolistTitleActionType>) => {
+    todolistsAPI.updateTodolist(todolistId, title)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(changeTodolistTitleAC(todolistId, title));
+            }
+        })
+}

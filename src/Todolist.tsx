@@ -48,7 +48,7 @@ export const Todolist = memo((props: PropsType) => {
     let filteredTasks = props.tasks;
 
     if (props.filter === 'Active') {
-        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.InProgress );
+        filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.New );
     }
     if (props.filter === 'Completed') {
         filteredTasks = props.tasks.filter(task => task.status === TaskStatuses.Completed);

@@ -1,6 +1,9 @@
 import React, {ChangeEvent, memo} from 'react';
 import {EditableInput} from "./components/editable-input/EditableInput";
 import {TaskResponseType, TaskStatuses} from "./types/types";
+import {IconButton} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Checkbox from '@mui/material/Checkbox';
 
 type PropsType = {
     todolistId: string;
@@ -25,10 +28,16 @@ export const Task = memo((props: PropsType) => {
 
     return (
         <li className={props.task.status ? 'is-done' : ''}>
-            <button onClick={removeTask}>x</button>
-            <input type='checkbox'
-                   checked={props.task.status === TaskStatuses.Completed}
-                   onChange={onChangeCheckboxHandler}/>
+            <IconButton aria-label="delete" onClick={removeTask}>
+                <DeleteIcon />
+            </IconButton>
+            {/*<button onClick={removeTask}>x</button>*/}
+            <Checkbox onChange={onChangeCheckboxHandler}
+                      checked={props.task.status === TaskStatuses.Completed} />
+
+            {/*<input type='checkbox'*/}
+            {/*       checked={props.task.status === TaskStatuses.Completed}*/}
+            {/*       onChange={onChangeCheckboxHandler}/>*/}
             <EditableInput value={props.task.title}
                            changeTitle={(value) => changeTaskTitle(props.task.id, value)}/>
         </li>

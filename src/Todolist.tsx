@@ -5,6 +5,9 @@ import {Task} from "./Task";
 import {FilterValuesType, TaskResponseType, TaskStatuses} from "./types/types";
 import {getTasksThunk} from "./store/tasks-reducer";
 import {useAppDispatch} from "./store/redux-store";
+import {Button, IconButton, Stack} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 type PropsType = {
     todolistId: string,
@@ -56,7 +59,12 @@ export const Todolist = memo((props: PropsType) => {
         <div>
             <h3>
                 <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
-                <button onClick={removeTodolist}>x</button>
+                {/*<Stack direction="row" spacing={1}>*/}
+                    <IconButton aria-label="delete">
+                        <DeleteIcon />
+                    </IconButton>
+                {/*</Stack>*/}
+                {/*<button onClick={removeTodolist}>x</button>*/}
             </h3>
             <InputForm addTask={addTask}/>
             <ul style={{listStyle: "none"}}>
@@ -70,15 +78,23 @@ export const Todolist = memo((props: PropsType) => {
                 }
             </ul>
             <div>
-                <button className={props.filter === 'All' ? 'active-filter' : ''}
-                        onClick={() => onClickFilterHandler('All')}>All
-                </button>
-                <button className={props.filter === 'Active' ? 'active-filter' : ''}
-                        onClick={() => onClickFilterHandler('Active')}>Active
-                </button>
-                <button className={props.filter === 'Completed' ? 'active-filter' : ''}
-                        onClick={() => onClickFilterHandler('Completed')}>Completed
-                </button>
+                <Stack spacing={1} direction="row">
+                    <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}
+                            onClick={() => onClickFilterHandler('All')}>All</Button>
+                    <Button variant={props.filter === 'Active' ? 'contained' : 'outlined'}
+                            onClick={() => onClickFilterHandler('Active')}>Active</Button>
+                    <Button variant={props.filter === 'Completed' ? 'contained' : 'outlined'}
+                            onClick={() => onClickFilterHandler('Completed')}>Completed</Button>
+                </Stack>
+                {/*<button className={props.filter === 'All' ? 'active-filter' : ''}*/}
+                {/*        onClick={() => onClickFilterHandler('All')}>All*/}
+                {/*</button>*/}
+                {/*<button className={props.filter === 'Active' ? 'active-filter' : ''}*/}
+                {/*        onClick={() => onClickFilterHandler('Active')}>Active*/}
+                {/*</button>*/}
+                {/*<button className={props.filter === 'Completed' ? 'active-filter' : ''}*/}
+                {/*        onClick={() => onClickFilterHandler('Completed')}>Completed*/}
+                {/*</button>*/}
             </div>
         </div>
     );

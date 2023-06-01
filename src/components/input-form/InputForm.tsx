@@ -1,4 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
+import {Button} from "@mui/material";
 
 type PropsType = {
     addTask: (value: string) => void;
@@ -36,7 +37,8 @@ export const InputForm = memo((props: PropsType) => {
                    onChange={onChangeHandler}
                    onKeyDown={onKeyPressHandler}
             />
-            <button onClick={onClickHandler}>+</button>
+            <Button variant={'outlined'} onClick={onClickHandler} style={{width: '32px', height: '32px'}}>+</Button>
+            {/*<button onClick={onClickHandler}>+</button>*/}
         </div>
     );
 });

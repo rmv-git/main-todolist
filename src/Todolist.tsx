@@ -57,7 +57,7 @@ export const Todolist = memo((props: PropsType) => {
 
     return (
         <div>
-            <h3>
+            <h3 style={{margin: 0}}>
                 <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
                 {/*<Stack direction="row" spacing={1}>*/}
                     <IconButton aria-label="delete">
@@ -67,7 +67,7 @@ export const Todolist = memo((props: PropsType) => {
                 {/*<button onClick={removeTodolist}>x</button>*/}
             </h3>
             <InputForm addTask={addTask}/>
-            <ul style={{listStyle: "none"}}>
+            <div style={{listStyle: "none"}}>
                 {
                     filteredTasks.map((task: TaskResponseType) => <Task todolistId={props.todolistId}
                                                                         key={task.id}
@@ -76,7 +76,7 @@ export const Todolist = memo((props: PropsType) => {
                                                                         removeTask={props.removeTask}
                                                                         onChangeCheckboxHandler={props.changeTaskStatus}/>)
                 }
-            </ul>
+            </div>
             {/*<div>*/}
                 <Stack spacing={0.5} direction="row">
                     <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}

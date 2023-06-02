@@ -60,7 +60,7 @@ export const App = memo(() => {
             {/*<div>*/}
             {/*<InputForm addTask={(value) => addTodolist(value)}/>*/}
             {/*</div>*/}
-            <Container fixed style={{padding: 0, margin: 0, alignItems: 'center'}}>
+            <Container fixed style={{padding: 0, margin: 0}}>
                 <Grid container style={{padding: '20px'}}>
                     <InputForm addTask={(value) => addTodolist(value)}/>
                 </Grid>

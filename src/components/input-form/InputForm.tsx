@@ -32,12 +32,13 @@ export const InputForm = memo((props: PropsType) => {
     }
 
     return (
-        <div>
+        <div style={{padding: 0, margin: 0, display: 'flex', flexFlow: 'row', alignItems: 'center'}}>
             <TextField variant={'outlined'}
                        value={value}
                        onChange={onChangeHandler}
                        onKeyDown={onKeyPressHandler}
-                       style={{height: '32px'}}
+                       size={'small'}
+                       style={{padding: '10px'}}
             />
             {/*<input type={'text'}*/}
             {/*       value={value}*/}

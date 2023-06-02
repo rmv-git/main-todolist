@@ -1,4 +1,5 @@
 import React, {ChangeEvent, memo, useState} from 'react';
+import {TextField} from "@mui/material";
 
 type PropsType = {
     value: string;
@@ -27,10 +28,17 @@ export const EditableInput = memo((props: PropsType) => {
         <>
             {
                 edit
-                    ? <input value={value}
-                             onChange={onChangeHandler}
-                             onBlur={deactivateEdit}
-                             autoFocus/>
+                    ? <TextField variant={'outlined'}
+                                 value={value}
+                                 onChange={onChangeHandler}
+                                 onBlur={deactivateEdit}
+                                 autoFocus
+                                 size={'small'}
+                    />
+                    // ? <input value={value}
+                    //          onChange={onChangeHandler}
+                    //          onBlur={deactivateEdit}
+                    //          autoFocus/>
                     : <span onDoubleClick={activateEdit}>{props.value}</span>
             }
         </>

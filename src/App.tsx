@@ -48,7 +48,6 @@ export const App = memo(() => {
     }, []);
     const addTodolist = useCallback((title: string) => {
         dispatch(createTodolistThunk(title));
-        // dispatch(addTodolistAC(title));
     }, []);
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistThunk(todolistId));
@@ -57,9 +56,6 @@ export const App = memo(() => {
     return (
         <div className="App">
             <MenuAppBar/>
-            {/*<div>*/}
-            {/*<InputForm addTask={(value) => addTodolist(value)}/>*/}
-            {/*</div>*/}
             <Container fixed style={{padding: 0, margin: 0}}>
                 <Grid container style={{padding: '20px'}}>
                     <InputForm addTask={(value) => addTodolist(value)}/>
@@ -87,43 +83,11 @@ export const App = memo(() => {
                                                   removeTodolist={removeTodolist}/>
                                     </Paper>
                                 </Grid>
-                                // <Todolist key={todolist.id}
-                                //           todolistId={todolist.id}
-                                //           title={todolist.title}
-                                //           tasks={allTasks}
-                                //           filter={todolist.filter}
-                                //           addTask={addTask}
-                                //           removeTask={removeTask}
-                                //           changeTodolistFilter={changeTodolistFilter}
-                                //           changeTaskStatus={changeTaskStatus}
-                                //           changeTaskTitle={changeTaskTitle}
-                                //           changeTodolistTitle={changeTodolistTitle}
-                                //           removeTodolist={removeTodolist}/>
                             )
                         })
                     }
                 </Grid>
             </Container>
-            {/*{*/}
-            {/*    todolists.map((todolist) => {*/}
-
-            {/*        let allTasks = tasks[todolist.id];*/}
-
-            {/*        return (*/}
-            {/*            <Todolist key={todolist.id}*/}
-            {/*                      todolistId={todolist.id}*/}
-            {/*                      title={todolist.title}*/}
-            {/*                      tasks={allTasks}*/}
-            {/*                      filter={todolist.filter}*/}
-            {/*                      addTask={addTask}*/}
-            {/*                      removeTask={removeTask}*/}
-            {/*                      changeTodolistFilter={changeTodolistFilter}*/}
-            {/*                      changeTaskStatus={changeTaskStatus}*/}
-            {/*                      changeTaskTitle={changeTaskTitle}*/}
-            {/*                      changeTodolistTitle={changeTodolistTitle}*/}
-            {/*                      removeTodolist={removeTodolist}/>)*/}
-            {/*    })*/}
-            {/*}*/}
         </div>
     );
 })

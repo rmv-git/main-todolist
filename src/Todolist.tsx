@@ -42,10 +42,6 @@ export const Todolist = memo((props: PropsType) => {
         props.changeTodolistTitle(props.todolistId, title);
     }, [props.changeTodolistTitle, props.todolistId])
 
-    const removeTodolist = useCallback(() => {
-        props.removeTodolist(props.todolistId);
-    }, [props.removeTodolist, props.todolistId])
-
     let filteredTasks = props.tasks;
 
     if (props.filter === 'Active') {
@@ -59,43 +55,32 @@ export const Todolist = memo((props: PropsType) => {
         <div>
             <h3 style={{margin: 0}}>
                 <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
-                {/*<Stack direction="row" spacing={1}>*/}
-                    <IconButton aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton>
-                {/*</Stack>*/}
-                {/*<button onClick={removeTodolist}>x</button>*/}
+                <IconButton aria-label="delete">
+                    <DeleteIcon/>
+                </IconButton>
             </h3>
             <InputForm addTask={addTask}/>
             <div style={{listStyle: "none"}}>
                 {
-                    filteredTasks.map((task: TaskResponseType) => <Task todolistId={props.todolistId}
-                                                                        key={task.id}
-                                                                        task={task}
-                                                                        changeTaskTitle={props.changeTaskTitle}
-                                                                        removeTask={props.removeTask}
-                                                                        onChangeCheckboxHandler={props.changeTaskStatus}/>)
+                    filteredTasks.map((task: TaskResponseType) => {
+                        return (
+                            <Task todolistId={props.todolistId}
+                                  key={task.id}
+                                  task={task}
+                                  changeTaskTitle={props.changeTaskTitle}
+                                  removeTask={props.removeTask}
+                                  onChangeCheckboxHandler={props.changeTaskStatus}/>)
+                    })
                 }
             </div>
-            {/*<div>*/}
-                <Stack spacing={0.5} direction="row">
-                    <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}
-                            onClick={() => onClickFilterHandler('All')}>All</Button>
-                    <Button variant={props.filter === 'Active' ? 'contained' : 'outlined'}
-                            onClick={() => onClickFilterHandler('Active')}>Active</Button>
-                    <Button variant={props.filter === 'Completed' ? 'contained' : 'outlined'}
-                            onClick={() => onClickFilterHandler('Completed')}>Completed</Button>
-                </Stack>
-                {/*<button className={props.filter === 'All' ? 'active-filter' : ''}*/}
-                {/*        onClick={() => onClickFilterHandler('All')}>All*/}
-                {/*</button>*/}
-                {/*<button className={props.filter === 'Active' ? 'active-filter' : ''}*/}
-                {/*        onClick={() => onClickFilterHandler('Active')}>Active*/}
-                {/*</button>*/}
-                {/*<button className={props.filter === 'Completed' ? 'active-filter' : ''}*/}
-                {/*        onClick={() => onClickFilterHandler('Completed')}>Completed*/}
-                {/*</button>*/}
-            {/*</div>*/}
+            <Stack spacing={0.5} direction="row">
+                <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}
+                        onClick={() => onClickFilterHandler('All')}>All</Button>
+                <Button variant={props.filter === 'Active' ? 'contained' : 'outlined'}
+                        onClick={() => onClickFilterHandler('Active')}>Active</Button>
+                <Button variant={props.filter === 'Completed' ? 'contained' : 'outlined'}
+                        onClick={() => onClickFilterHandler('Completed')}>Completed</Button>
+            </Stack>
         </div>
     );
 })

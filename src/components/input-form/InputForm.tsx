@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import {Button, IconButton, TextField} from "@mui/material";
+import styles from './InputForm.module.css';
+import {IconButton, Stack, TextField} from "@mui/material";
 import {AddBox} from "@mui/icons-material";
 
 type PropsType = {
@@ -32,7 +33,7 @@ export const InputForm = memo((props: PropsType) => {
     }
 
     return (
-        <div style={{padding: 0, margin: 0, display: 'flex', flexFlow: 'row', alignItems: 'center'}}>
+        <Stack className={styles.wrapper}>
             <TextField variant={'outlined'}
                        value={value}
                        onChange={onChangeHandler}
@@ -40,16 +41,9 @@ export const InputForm = memo((props: PropsType) => {
                        size={'small'}
                        style={{padding: '10px'}}
             />
-            {/*<input type={'text'}*/}
-            {/*       value={value}*/}
-            {/*       onChange={onChangeHandler}*/}
-            {/*       onKeyDown={onKeyPressHandler}*/}
-            {/*/>*/}
-            {/*<Button variant={'outlined'} onClick={onClickHandler} style={{width: '32px', height: '32px'}}>+</Button>*/}
-            <IconButton color={'primary'} onClick={onClickHandler} >
+            <IconButton color={'primary'} onClick={onClickHandler}>
                 <AddBox/>
             </IconButton>
-            {/*<button onClick={onClickHandler}>+</button>*/}
-        </div>
+        </Stack>
     );
 });

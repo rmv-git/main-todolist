@@ -35,10 +35,6 @@ export const EditableInput = memo((props: PropsType) => {
                                  autoFocus
                                  size={'small'}
                     />
-                    // ? <input value={value}
-                    //          onChange={onChangeHandler}
-                    //          onBlur={deactivateEdit}
-                    //          autoFocus/>
                     : <span onDoubleClick={activateEdit}>{props.value}</span>
             }
         </>

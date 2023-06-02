@@ -28,14 +28,9 @@ export const Task = memo((props: PropsType) => {
 
     return (
         <div className={props.task.status ? 'is-done' : ''}>
-            {/*<button onClick={removeTask}>x</button>*/}
             <Checkbox onChange={onChangeCheckboxHandler}
                       color={'primary'}
                       checked={props.task.status === TaskStatuses.Completed}/>
-
-            {/*<input type='checkbox'*/}
-            {/*       checked={props.task.status === TaskStatuses.Completed}*/}
-            {/*       onChange={onChangeCheckboxHandler}/>*/}
             <EditableInput value={props.task.title}
                            changeTitle={(value) => changeTaskTitle(props.task.id, value)}/>
             <IconButton aria-label="delete" onClick={removeTask}>

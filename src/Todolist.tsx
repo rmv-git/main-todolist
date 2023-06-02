@@ -77,8 +77,8 @@ export const Todolist = memo((props: PropsType) => {
                                                                         onChangeCheckboxHandler={props.changeTaskStatus}/>)
                 }
             </ul>
-            <div>
-                <Stack spacing={1} direction="row">
+            {/*<div>*/}
+                <Stack spacing={0.5} direction="row">
                     <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}
                             onClick={() => onClickFilterHandler('All')}>All</Button>
                     <Button variant={props.filter === 'Active' ? 'contained' : 'outlined'}
@@ -95,7 +95,7 @@ export const Todolist = memo((props: PropsType) => {
                 {/*<button className={props.filter === 'Completed' ? 'active-filter' : ''}*/}
                 {/*        onClick={() => onClickFilterHandler('Completed')}>Completed*/}
                 {/*</button>*/}
-            </div>
+            {/*</div>*/}
         </div>
     );
 })

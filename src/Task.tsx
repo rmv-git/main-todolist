@@ -33,6 +33,7 @@ export const Task = memo((props: PropsType) => {
             </IconButton>
             {/*<button onClick={removeTask}>x</button>*/}
             <Checkbox onChange={onChangeCheckboxHandler}
+                      color={'primary'}
                       checked={props.task.status === TaskStatuses.Completed} />
 
             {/*<input type='checkbox'*/}

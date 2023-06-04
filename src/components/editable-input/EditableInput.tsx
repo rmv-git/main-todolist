@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {TextField} from "@mui/material";
 
 type PropsType = {
@@ -10,6 +10,8 @@ export const EditableInput = memo((props: PropsType) => {
 
     const [edit, setEdit] = useState<boolean>(false);
     const [value, setValue] = useState(props.value);
+    const [error, setError] = useState<string | null>(null);
+
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
@@ -20,8 +22,26 @@ export const EditableInput = memo((props: PropsType) => {
     }
 
     const deactivateEdit = () => {
-        props.changeTitle(value);
-        setEdit(false);
+        if (value.trim() !== '') {
+            props.changeTitle(value);
+            setEdit(false);
+        }
+        if (value.trim() === '') {
+            setError('Title is required!');
+        }
+        if (error !== null) {
+            setError(null);
+        }
+    }
+
+    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null);
+        }
+        const {key} = event;
+        if (key === 'Enter') {
+            deactivateEdit();
+        }
     }
 
     return (
@@ -34,6 +54,9 @@ export const EditableInput = memo((props: PropsType) => {
                                  onBlur={deactivateEdit}
                                  autoFocus
                                  size={'small'}
+                                 error={!!error}
+                                 label={error}
+                                 onKeyDown={onKeyPressHandler}
                     />
                     : <span onDoubleClick={activateEdit}>{props.value}</span>
             }

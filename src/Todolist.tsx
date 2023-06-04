@@ -60,7 +60,7 @@ export const Todolist = memo((props: PropsType) => {
                 </IconButton>
             </h3>
             <InputForm addTask={addTask}/>
-            <div style={{listStyle: "none"}}>
+            <Stack direction={'column'} style={{listStyle: "none"}}>
                 {
                     filteredTasks.map((task: TaskResponseType) => {
                         return (
@@ -72,7 +72,7 @@ export const Todolist = memo((props: PropsType) => {
                                   onChangeCheckboxHandler={props.changeTaskStatus}/>)
                     })
                 }
-            </div>
+            </Stack>
             <Stack spacing={0.5} direction="row">
                 <Button variant={props.filter === 'All' ? 'contained' : 'outlined'}
                         onClick={() => onClickFilterHandler('All')}>All</Button>

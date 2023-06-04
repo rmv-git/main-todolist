@@ -9,11 +9,15 @@ type PropsType = {
 export const InputForm = memo((props: PropsType) => {
 
     const [value, setValue] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     const addTask = () => {
         if (value.trim() !== '') {
             props.addTask(value);
             setValue('');
+        }
+        if (value.trim() === '') {
+            setError('Title is required!');
         }
     }
 
@@ -22,10 +26,16 @@ export const InputForm = memo((props: PropsType) => {
     }
 
     const onClickHandler = () => {
+        if (error !== null) {
+            setError(null);
+        }
         addTask();
     }
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null);
+        }
         const {key} = event;
         if (key === 'Enter') {
             onClickHandler();
@@ -33,13 +43,14 @@ export const InputForm = memo((props: PropsType) => {
     }
 
     return (
-        <Stack className={styles.wrapper}>
+        <Stack direction={'row'} className={styles.wrapper}>
             <TextField variant={'outlined'}
                        value={value}
                        onChange={onChangeHandler}
                        onKeyDown={onKeyPressHandler}
                        size={'small'}
-                       style={{padding: '10px'}}
+                       error={!!error}
+                       label={error}
             />
             <IconButton color={'primary'} onClick={onClickHandler}>
                 <AddBox/>

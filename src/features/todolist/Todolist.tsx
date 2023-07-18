@@ -1,10 +1,10 @@
 import React, {memo, useCallback, useEffect} from "react";
-import {InputForm} from "./components/input-form/InputForm";
-import {EditableInput} from "./components/editable-input/EditableInput";
-import {Task} from "./Task";
-import {FilterValuesType, TaskResponseType, TaskStatuses} from "./types/types";
-import {getTasksThunk} from "./store/tasks-reducer";
-import {useAppDispatch} from "./store/redux-store";
+import {InputForm} from "../../components/input-form/InputForm";
+import {EditableInput} from "../../components/editable-input/EditableInput";
+import {Task} from "./task/Task";
+import {FilterValuesType, TaskResponseType, TaskStatuses} from "../../types/types";
+import {getTasksThunk} from "../../store/tasks-reducer";
+import {useAppDispatch} from "../../store/redux-store";
 import {Button, IconButton, Stack} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 

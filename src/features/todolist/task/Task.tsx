@@ -1,6 +1,6 @@
 import React, {ChangeEvent, memo} from 'react';
-import {EditableInput} from "./components/editable-input/EditableInput";
-import {TaskResponseType, TaskStatuses} from "./types/types";
+import {EditableInput} from "../../../components/editable-input/EditableInput";
+import {TaskResponseType, TaskStatuses} from "../../../types/types";
 import {IconButton} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Checkbox from '@mui/material/Checkbox';

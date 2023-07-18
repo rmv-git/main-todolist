@@ -44,41 +44,31 @@ type ActionsType = ChangeTodolistTitleActionType
     | RemoveTodolistActionType
     | GetTodolistsActionType;
 
-export const changeTodolistTitleAC = (todolistId: string, title: string) => {
-    return {
-        type: 'CHANGE_TODOLIST_TITLE',
-        todolistId,
-        title,
-    } as const
-}
-export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesType) => {
-    return {
-        type: 'CHANGE_TODOLIST_FILTER',
-        todolistId,
-        filter,
-    } as const
-}
+export const changeTodolistTitleAC = (todolistId: string, title: string) => ({
+    type: 'CHANGE_TODOLIST_TITLE',
+    todolistId,
+    title,
+} as const)
+export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesType) => ({
+    type: 'CHANGE_TODOLIST_FILTER',
+    todolistId,
+    filter,
+} as const)
 
-export const addTodolistAC = (todolist: TodolistResponseType) => {
-    return {
-        type: 'ADD_TODOLIST',
-        todolistId: v1(),
-        todolist,
-    } as const
-}
-export const removeTodolistAC = (todolistId: string) => {
-    return {
-        type: 'REMOVE_TODOLIST',
-        todolistId,
-    } as const
-}
+export const addTodolistAC = (todolist: TodolistResponseType) => ({
+    type: 'ADD_TODOLIST',
+    todolistId: v1(),
+    todolist,
+} as const)
+export const removeTodolistAC = (todolistId: string) => ({
+    type: 'REMOVE_TODOLIST',
+    todolistId,
+} as const)
 
-export const getTodolistsAC = (todolists: TodolistResponseType[]) => {
-    return {
-        type: 'GET_TODOLISTS',
-        todolists,
-    } as const
-}
+export const getTodolistsAC = (todolists: TodolistResponseType[]) => ({
+    type: 'GET_TODOLISTS',
+    todolists,
+} as const)
 
 export const getTodolistsThunk = () => (dispatch: Dispatch) => {
     todolistsAPI.getTodolists()
@@ -92,7 +82,6 @@ export const createTodolistThunk = (title: string) => (dispatch: Dispatch<AddTod
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(addTodolistAC(response.data.data.item))
-
             }
         })
 }

@@ -6,6 +6,7 @@ import {
     TodolistResponseType,
     UpdateTaskModelType
 } from "../types/types";
+import {number} from "prop-types";
 
 export const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.1/`,
@@ -20,7 +21,7 @@ export const todolistsAPI = {
         return instance.get<TodolistResponseType[]>(`todo-lists`)
     },
     createTodolist(title: string) {
-        return instance.post<ResponseType<{item: TodolistResponseType}>>(`todo-lists`, {title})
+        return instance.post<ResponseType<{ item: TodolistResponseType }>>(`todo-lists`, {title})
     },
     deleteTodolist(todolistId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
@@ -35,9 +36,22 @@ export const todolistsAPI = {
         return instance.post<ResponseType<{ item: TaskResponseType }>>(`todo-lists/${todolistId}/tasks`, {title})
     },
     updateTask(todolistId: string, taskId: string, updateModal: UpdateTaskModelType) {
-        return instance.put<ResponseType<{ item: TaskResponseType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, updateModal)
+        return instance.put<ResponseType<{
+            item: TaskResponseType
+        }>>(`todo-lists/${todolistId}/tasks/${taskId}`, updateModal)
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType<{ userId?: number }>>(`/auth/login`, data)
+    },
+}
+
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
 }

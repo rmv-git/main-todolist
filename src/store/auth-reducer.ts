@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {LoginParamsType, todolistsAPI} from "../api/API";
+
 const initialState: InitialStateType = {
     isLoggedIn: false,
 }
@@ -20,4 +23,11 @@ export const setIsLoggedInAC = (isLoggedIn: boolean) => ({type: 'SET_IS_LOGGED_I
 
 export type SetIsLoggedInActionType = ReturnType<typeof setIsLoggedInAC>;
 
-
+export const logInTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
+    todolistsAPI.login(data)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedInAC(true));
+            }
+        })
+}

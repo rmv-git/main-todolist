@@ -6,7 +6,6 @@ import {
     TodolistResponseType,
     UpdateTaskModelType
 } from "../types/types";
-import {number} from "prop-types";
 
 export const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.1/`,

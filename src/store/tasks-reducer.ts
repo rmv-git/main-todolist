@@ -14,6 +14,7 @@ import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {todolistsAPI} from "../api/API";
 import {RootStateType} from "./redux-store";
+import {setAppErrorAC, SetAppErrorActionType} from "./app-reducer";
 
 const initialState: TasksType = {};
 
@@ -141,10 +142,14 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
 export const createTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
     todolistsAPI.createTask(todolistId, title)
         .then(response => {
-            dispatch(addTaskAC(todolistId, title))
+            if (response.data.resultCode === 0) {
+                dispatch(addTaskAC(todolistId, title))
+            } else {
+                dispatch(setAppErrorAC(response.data.messages[0]))
+            }
         })
 }
-export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTaskModel: UpdateTaskDomainType) => (dispatch: Dispatch<ActionsType>, getState: () => RootStateType) => {
+export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTaskModel: UpdateTaskDomainType) => (dispatch: Dispatch<ActionsType | SetAppErrorActionType>, getState: () => RootStateType) => {
 
     const state = getState();
 
@@ -165,7 +170,11 @@ export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTask
 
     todolistsAPI.updateTask(todolistId, taskId, updateModel)
         .then(response => {
-            dispatch(changeTaskTitleAC(todolistId, taskId, updateModel))
+            if (response.data.resultCode === 0) {
+                dispatch(changeTaskTitleAC(todolistId, taskId, updateModel))
+            } else {
+                dispatch(setAppErrorAC(response.data.messages[0]))
+            }
         })
 }
 export const changeTaskStatusTC = (todolistId: string, taskId: string, updateTaskModel: UpdateTaskDomainType) => (dispatch: Dispatch<ActionsType>, getState: () => RootStateType) => {

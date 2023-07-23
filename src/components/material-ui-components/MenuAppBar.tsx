@@ -11,6 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import {LinearProgressBar} from "./LinearProgressBar";
 
 export default function MenuAppBar() {
     const [auth, setAuth] = React.useState(true);
@@ -91,6 +92,7 @@ export default function MenuAppBar() {
                     )}
                 </Toolbar>
             </AppBar>
+            <LinearProgressBar/>
         </Box>
     );
 }

@@ -14,7 +14,7 @@ import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {todolistsAPI} from "../api/API";
 import {RootStateType} from "./redux-store";
-import {setAppErrorAC, SetAppErrorActionType} from "./app-reducer";
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 
 const initialState: TasksType = {};
 
@@ -140,16 +140,19 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
         })
 }
 export const createTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(addTaskAC(todolistId, title))
+                dispatch(setAppStatusAC('succeeded'))
             } else {
                 dispatch(setAppErrorAC(response.data.messages[0]))
+                dispatch(setAppStatusAC('failed'))
             }
         })
 }
-export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTaskModel: UpdateTaskDomainType) => (dispatch: Dispatch<ActionsType | SetAppErrorActionType>, getState: () => RootStateType) => {
+export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTaskModel: UpdateTaskDomainType) => (dispatch: Dispatch<ActionsType | SetAppErrorActionType | SetAppStatusActionType>, getState: () => RootStateType) => {
 
     const state = getState();
 
@@ -168,12 +171,15 @@ export const changeTaskTitleTC = (todolistId: string, taskId: string, updateTask
         ...updateTaskModel,
     }
 
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.updateTask(todolistId, taskId, updateModel)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(changeTaskTitleAC(todolistId, taskId, updateModel))
+                dispatch(setAppStatusAC('succeeded'))
             } else {
                 dispatch(setAppErrorAC(response.data.messages[0]))
+                dispatch(setAppStatusAC('failed'))
             }
         })
 }

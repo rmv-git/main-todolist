@@ -8,7 +8,6 @@ import {useAppDispatch} from "../../store/redux-store";
 import {Button, IconButton, Stack} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
 type PropsType = {
     todolistId: string,
     title: string;
@@ -42,6 +41,10 @@ export const Todolist = memo((props: PropsType) => {
         props.changeTodolistTitle(props.todolistId, title);
     }, [props.changeTodolistTitle, props.todolistId])
 
+    const removeTodolist = useCallback(() => {
+        props.removeTodolist(props.todolistId)
+    }, [props.removeTodolist, props.todolistId])
+
     let filteredTasks = props.tasks;
 
     if (props.filter === 'Active') {
@@ -55,7 +58,7 @@ export const Todolist = memo((props: PropsType) => {
         <div>
             <h3 style={{margin: 0}}>
                 <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={removeTodolist}>
                     <DeleteIcon/>
                 </IconButton>
             </h3>

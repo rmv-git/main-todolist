@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {FilterValuesType, TodolistDomainType, TodolistResponseType} from "../types/types";
 import {Dispatch} from "redux";
 import {todolistsAPI} from "../api/API";
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 
 const initialState: Array<TodolistDomainType> = [];
 export const todolistsReducer = (state = initialState, action: ActionsType): TodolistDomainType[] => {
@@ -71,17 +72,24 @@ export const getTodolistsAC = (todolists: TodolistResponseType[]) => ({
 } as const)
 
 export const getTodolistsThunk = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.getTodolists()
         .then(response => {
             dispatch(getTodolistsAC(response.data))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 
-export const createTodolistThunk = (title: string) => (dispatch: Dispatch<AddTodolistActionType>) => {
+export const createTodolistThunk = (title: string) => (dispatch: Dispatch<AddTodolistActionType | SetAppStatusActionType | SetAppErrorActionType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.createTodolist(title)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(addTodolistAC(response.data.data.item))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                dispatch(setAppErrorAC(response.data.messages[0]))
+                dispatch(setAppStatusAC('failed'))
             }
         })
 }
@@ -95,11 +103,15 @@ export const removeTodolistThunk = (todolistId: string) => (dispatch: Dispatch<R
         })
 }
 
-export const changeTodolistTitleThunk = (todolistId: string, title: string) => (dispatch: Dispatch<ChangeTodolistTitleActionType>) => {
+export const changeTodolistTitleThunk = (todolistId: string, title: string) => (dispatch: Dispatch<ChangeTodolistTitleActionType | SetAppStatusActionType | SetAppErrorActionType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.updateTodolist(todolistId, title)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(changeTodolistTitleAC(todolistId, title));
+            } else {
+                dispatch(setAppErrorAC(response.data.messages[0]))
+                dispatch(setAppStatusAC('failed'))
             }
         })
 }

@@ -34,7 +34,8 @@ export type GetTasksResponseType = {
     error: string,
 }
 export type TodolistDomainType = TodolistResponseType & {
-    filter: FilterValuesType
+    filter: FilterValuesType,
+    entityStatus: RequestStatusType ,
 }
 
 export type ResponseType<T = {}> = {
@@ -67,3 +68,5 @@ export type UpdateTaskModelType = {
     startDate: string,
     deadline: string,
 }
+
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';

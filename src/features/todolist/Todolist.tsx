@@ -2,7 +2,7 @@ import React, {memo, useCallback, useEffect} from "react";
 import {InputForm} from "../../components/input-form/InputForm";
 import {EditableInput} from "../../components/editable-input/EditableInput";
 import {Task} from "./task/Task";
-import {FilterValuesType, TaskResponseType, TaskStatuses} from "../../types/types";
+import {FilterValuesType, RequestStatusType, TaskResponseType, TaskStatuses} from "../../types/types";
 import {getTasksThunk} from "../../store/tasks-reducer";
 import {useAppDispatch} from "../../store/redux-store";
 import {Button, IconButton, Stack} from "@mui/material";
@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 type PropsType = {
     todolistId: string,
+    entityStatus: RequestStatusType;
     title: string;
     tasks: Array<TaskResponseType>;
     filter: FilterValuesType;
@@ -58,7 +59,7 @@ export const Todolist = memo((props: PropsType) => {
         <div>
             <h3 style={{margin: 0}}>
                 <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
-                <IconButton aria-label="delete" onClick={removeTodolist}>
+                <IconButton aria-label="delete" onClick={removeTodolist} disabled={props.entityStatus === 'loading'}>
                     <DeleteIcon/>
                 </IconButton>
             </h3>

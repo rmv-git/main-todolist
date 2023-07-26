@@ -11,7 +11,7 @@ import {changeTaskStatusTC, changeTaskTitleTC, createTaskTC, removeTaskTC} from 
 import {useSelector} from "react-redux";
 import {RootStateType, useAppDispatch} from "../../store/redux-store";
 import {FilterValuesType, TaskStatuses, TasksType, TodolistDomainType} from "../../types/types";
-import {Container, Grid, Paper} from "@mui/material";
+import {Grid, Paper} from "@mui/material";
 import {InputForm} from "../../components/input-form/InputForm";
 
 export const TodolistsList = memo(() => {
@@ -70,6 +70,7 @@ export const TodolistsList = memo(() => {
                                               title={todolist.title}
                                               tasks={allTasks}
                                               filter={todolist.filter}
+                                              entityStatus={todolist.entityStatus}
                                               addTask={addTask}
                                               removeTask={removeTask}
                                               changeTodolistFilter={changeTodolistFilter}

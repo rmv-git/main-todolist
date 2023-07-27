@@ -22,29 +22,37 @@ type PropsType = {
     changeTodolistTitle: (todolistId: string, title: string) => void;
     removeTodolist: (todolistId: string) => void;
 }
-export const Todolist = memo((props: PropsType) => {
+export const Todolist: React.FC<PropsType> = memo((props) => {
+
+    const {
+        todolistId,
+        addTask,
+        changeTodolistFilter,
+        changeTodolistTitle,
+        removeTodolist,
+    } = props;
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getTasksThunk(props.todolistId))
-    }, []);
+        dispatch(getTasksThunk(todolistId))
+    },[dispatch, todolistId]);
 
-    const addTask = useCallback((value: string) => {
-        props.addTask(props.todolistId, value)
-    }, [props.addTask, props.todolistId])
+    const addTaskCallback = useCallback((value: string) => {
+        addTask(todolistId, value)
+    }, [addTask, todolistId])
 
     const onClickFilterHandler = useCallback((filter: FilterValuesType) => {
-        props.changeTodolistFilter(props.todolistId, filter);
-    }, [props.changeTodolistFilter, props.todolistId])
+        changeTodolistFilter(todolistId, filter);
+    }, [changeTodolistFilter, todolistId])
 
-    const changeTodolistTitle = useCallback((title: string) => {
-        props.changeTodolistTitle(props.todolistId, title);
-    }, [props.changeTodolistTitle, props.todolistId])
+    const changeTodolistTitleCallback = useCallback((title: string) => {
+        changeTodolistTitle(todolistId, title);
+    }, [changeTodolistTitle, todolistId])
 
-    const removeTodolist = useCallback(() => {
-        props.removeTodolist(props.todolistId)
-    }, [props.removeTodolist, props.todolistId])
+    const removeTodolistCallback = useCallback(() => {
+        removeTodolist(todolistId)
+    }, [removeTodolist, todolistId])
 
     let filteredTasks = props.tasks;
 
@@ -58,17 +66,18 @@ export const Todolist = memo((props: PropsType) => {
     return (
         <div>
             <h3 style={{margin: 0}}>
-                <EditableInput value={props.title} changeTitle={changeTodolistTitle}/>
-                <IconButton aria-label="delete" onClick={removeTodolist} disabled={props.entityStatus === 'loading'}>
+                <EditableInput value={props.title} changeTitle={changeTodolistTitleCallback}/>
+                <IconButton aria-label="delete" onClick={removeTodolistCallback}
+                            disabled={props.entityStatus === 'loading'}>
                     <DeleteIcon/>
                 </IconButton>
             </h3>
-            <InputForm addTask={addTask} entityStatus={props.entityStatus}/>
+            <InputForm addTask={addTaskCallback} entityStatus={props.entityStatus}/>
             <Stack direction={'column'} style={{listStyle: "none"}}>
                 {
                     filteredTasks.map((task: TaskResponseType) => {
                         return (
-                            <Task todolistId={props.todolistId}
+                            <Task todolistId={todolistId}
                                   key={task.id}
                                   task={task}
                                   changeTaskTitle={props.changeTaskTitle}

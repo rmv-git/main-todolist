@@ -63,7 +63,7 @@ export const Todolist = memo((props: PropsType) => {
                     <DeleteIcon/>
                 </IconButton>
             </h3>
-            <InputForm addTask={addTask}/>
+            <InputForm addTask={addTask} entityStatus={props.entityStatus}/>
             <Stack direction={'column'} style={{listStyle: "none"}}>
                 {
                     filteredTasks.map((task: TaskResponseType) => {

@@ -2,9 +2,11 @@ import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import styles from './InputForm.module.css';
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddBox} from "@mui/icons-material";
+import {RequestStatusType} from "../../types/types";
 
 type PropsType = {
     addTask: (value: string) => void;
+    entityStatus?: RequestStatusType;
 }
 export const InputForm = memo((props: PropsType) => {
 
@@ -52,7 +54,7 @@ export const InputForm = memo((props: PropsType) => {
                        error={!!error}
                        label={error}
             />
-            <IconButton color={'primary'} onClick={onClickHandler}>
+            <IconButton color={'primary'} onClick={onClickHandler} disabled={props.entityStatus === 'loading'}>
                 <AddBox/>
             </IconButton>
         </Stack>
